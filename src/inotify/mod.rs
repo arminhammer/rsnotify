@@ -167,6 +167,9 @@ impl mio::Handler for INotifyHandler {
                                     if event.is_attrib() {
                                         o.insert(op::CHMOD);
                                     }
+                                    if event.is_open() {
+                                        o.insert(op::OPEN);
+                                    }
 
                                     if !o.is_empty() {
                                         send_pending_rename_event(rename_event, &mut self.event_tx);
@@ -257,7 +260,7 @@ impl INotifyHandler {
 
     fn add_single_watch(&mut self, path: PathBuf, is_recursive: bool, watch_self: bool) -> Result<()> {
         let mut flags = flags::IN_ATTRIB | flags::IN_CREATE | flags::IN_DELETE | flags::IN_CLOSE_WRITE | 
-                        flags::IN_MODIFY | flags::IN_MOVED_FROM | flags::IN_MOVED_TO;
+                        flags::IN_MODIFY | flags::IN_MOVED_FROM | flags::IN_MOVED_TO | flags::IN_OPEN;
 
         if watch_self {
             flags.insert(flags::IN_DELETE_SELF);
