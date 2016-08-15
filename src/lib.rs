@@ -292,11 +292,11 @@ pub mod op {
             /// Written
             const WRITE   = 0b010000,
             /// Closed written
-            const CLOSE_WRITE   = 0b100001,
-            /// Opened
-            const OPEN = 0b100010,
+            const CLOSE_WRITE   = 0b100000,
             /// Directories need to be rescanned
-            const RESCAN  = 0b100000,
+            const RESCAN  = 0b1000000,
+            /// Opened
+            const OPEN = 0b10000000,
         }
     }
 }
